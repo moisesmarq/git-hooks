@@ -1,4 +1,4 @@
-\# Git Hooks - Padrão de Commits
+# Git Hooks - Padrão de Commits
 
 
 
@@ -6,15 +6,15 @@ Repositório centralizado para armazenar e reutilizar hooks do Git em diferentes
 
 
 
-Este projeto utiliza o padrão \*\*Gitmoji + Conventional Commits\*\* para padronizar mensagens de commit, melhorar a organização do histórico e facilitar a manutenção dos repositórios.
+Este projeto utiliza o padrão **Gitmoji + Conventional Commits** para padronizar mensagens de commit, melhorar a organização do histórico e facilitar a manutenção dos repositórios.
 
 
 
-\---
+---
 
 
 
-\## Objetivo
+## Objetivo
 
 
 
@@ -26,23 +26,23 @@ Funciona com:
 
 
 
-\* IntelliJ IDEA
+* IntelliJ IDEA
 
-\* VSCode
+* VSCode
 
-\* Git Bash
+* Git Bash
 
-\* Terminal
+* Terminal
 
-\* Qualquer ferramenta que utilize Git
-
-
-
-\---
+* Qualquer ferramenta que utilize Git
 
 
 
-\## Padrão de Commit
+---
+
+
+
+## Padrão de Commit
 
 
 
@@ -77,24 +77,20 @@ Estrutura:
 ```bash
 
 ✨ feat(core): adiciona validação inicial
-
 │   │    │       └── Descrição curta da alteração
-
 │   │    └────────── Escopo da alteração
-
 │   └─────────────── Tipo do commit
-
 └─────────────────── Gitmoji
 
 ```
 
 
 
-\---
+---
 
 
 
-\## Exemplos de Commits Válidos
+## Exemplos de Commits Válidos
 
 
 
@@ -124,11 +120,11 @@ Estrutura:
 
 
 
-\---
+---
 
 
 
-\## Exemplos de Commits Inválidos
+## Exemplos de Commits Inválidos
 
 
 
@@ -154,115 +150,114 @@ Motivos:
 
 
 
-\* Falta Gitmoji
+* Falta Gitmoji
 
-\* Falta tipo do commit
+* Falta tipo do commit
 
-\* Falta escopo válido
+* Falta escopo válido
 
-\* Escopo não permitido
+* Escopo não permitido
 
-\* Mensagem genérica demais
-
-
-
-\---
+* Mensagem genérica demais
 
 
 
-\## Tipos Permitidos
+---
 
 
 
-| Tipo       | Significado         | Quando usar                                                                        |
+## Tipos Permitidos
 
-| ---------- | ------------------- | ---------------------------------------------------------------------------------- |
+> `feat`
+> Funcionalidade: Quando adicionar uma nova funcionalidade
 
-| `feat`     | Funcionalidade      | Quando adicionar uma nova funcionalidade                                           |
+> `fix`
+> Correção: Quando corrigir um erro ou bug
 
-| `fix`      | Correção            | Quando corrigir um erro ou bug                                                     |
+> `docs`
+> Documentação: Quando alterar documentação
 
-| `docs`     | Documentação        | Quando alterar documentação                                                        |
+> `style`
+> Estilo/Formatação: Quando alterar formatação, layout ou organização visual sem mudar regra de negócio
 
-| `style`    | Estilo/Formatação   | Quando alterar formatação, layout ou organização visual sem mudar regra de negócio |
+> `refactor`
+> Refatoração: Quando melhorar o código sem alterar seu comportamento
 
-| `refactor` | Refatoração         | Quando melhorar o código sem alterar seu comportamento                             |
+> `test`
+> Testes: Quando adicionar ou alterar testes
 
-| `test`     | Testes              | Quando adicionar ou alterar testes                                                 |
+> `chore`
+> Tarefa geral: Quando alterar configurações, scripts ou tarefas internas
 
-| `chore`    | Tarefa geral        | Quando alterar configurações, scripts ou tarefas internas                          |
+> `perf`
+> Performance: Quando melhorar desempenho
 
-| `perf`     | Performance         | Quando melhorar desempenho                                                         |
+> `build`
+> Build: Quando alterar empacotamento, dependências ou compilação
 
-| `build`    | Build               | Quando alterar empacotamento, dependências ou compilação                           |
+> `ci`
+> Integração contínua: Quando alterar pipelines e automações de CI/CD
 
-| `ci`       | Integração contínua | Quando alterar pipelines e automações de CI/CD                                     |
-
-| `revert`   | Reversão            | Quando reverter uma alteração anterior                                             |
-
-
-
-\---
-
-
-
-\## Gitmojis Permitidos
-
-
-
-| Gitmoji | Uso sugerido                                   |
-
-| ------- | ---------------------------------------------- |
-
-| 🎉      | Início do projeto ou estrutura inicial         |
-
-| ✨       | Nova funcionalidade                            |
-
-| 🐛      | Correção de bug                                |
-
-| ♻️      | Refatoração                                    |
-
-| 📝      | Documentação                                   |
-
-| 🎨      | Estilo, layout ou formatação                   |
-
-| ✅       | Testes                                         |
-
-| 🔧      | Configurações                                  |
-
-| ⚡       | Performance                                    |
-
-| 🚀      | Deploy, CI/CD ou publicação                    |
-
-| 🔥      | Remoção de código ou arquivos                  |
-
-| 🗃️     | Banco de dados                                 |
-
-| 🔒      | Segurança                                      |
-
-| ⬆️      | Atualização de dependências                    |
-
-| 🚑      | Correção crítica                               |
-
-| 🧾      | Comprovantes, relatórios ou documentos gerados |
-
-| 📦      | Build, pacote ou artefato                      |
-
-| 🐳      | Docker ou containers                           |
-
-| 🔖      | Release, tag ou versão                         |
-
-| ➕       | Adição de dependência                          |
-
-| ➖       | Remoção de dependência                         |
+> `revert`
+> Reversão: Quando reverter uma alteração anterior
 
 
 
-\---
+---
 
 
 
-\# Glossário de Escopos
+## Gitmojis Permitidos                           
+ 
+🎉  | Início do projeto ou estrutura inicial         
+
+✨  | Nova funcionalidade                            
+
+🐛  | Correção de bug                                
+
+♻️  | Refatoração                                    
+
+📝  | Documentação                                   
+
+🎨  | Estilo, layout ou formatação                   
+
+✅  | Testes                                         
+
+🔧  | Configurações                                  
+
+⚡  | Performance                                    
+
+🚀  | Deploy, CI/CD ou publicação                    
+
+🔥  | Remoção de código ou arquivos                  
+
+🗃️  | Banco de dados                                 
+
+🔒  | Segurança                                      
+
+⬆️  | Atualização de dependências                    
+
+🚑  | Correção crítica                               
+
+🧾  | Comprovantes, relatórios ou documentos gerados 
+
+📦  | Build, pacote ou artefato                      
+
+🐳  | Docker ou containers                           
+
+🔖  | Release, tag ou versão                         
+
+➕  | Adição de dependência                          
+
+➖  | Remoção de dependência                         
+
+
+
+---
+
+
+
+# Glossário de Escopos
 
 
 
@@ -294,11 +289,11 @@ Exemplo:
 
 
 
-\---
+---
 
 
 
-\## `project`
+## `project`
 
 
 
@@ -329,22 +324,21 @@ Exemplos:
 Uso comum:
 
 
+* Estrutura inicial
 
-\* Estrutura inicial
+* Organização geral
 
-\* Organização geral
+* Arquivos base
 
-\* Arquivos base
-
-\* Primeiro commit do projeto
-
-
-
-\---
+* Primeiro commit do projeto
 
 
 
-\## `config`
+---
+
+
+
+## `config`
 
 
 
@@ -394,11 +388,11 @@ appsettings.json
 
 
 
-\---
+---
 
 
 
-\## `hooks`
+## `hooks`
 
 
 
@@ -430,27 +424,23 @@ Uso comum:
 
 
 
-\* `commit-msg`
+* `commit-msg`
 
-\* `pre-commit`
+* `pre-commit`
 
-\* `pre-push`
+* `pre-push`
 
-\* Validação de mensagens de commit
-
-
-
-\---
+* Validação de mensagens de commit
 
 
 
-\## `git`
+---
 
 
+
+## `git`
 
 Representa configurações relacionadas ao Git e versionamento.
-
-
 
 Use quando alterar arquivos ou configurações diretamente ligadas ao controle de versão.
 
@@ -492,17 +482,17 @@ Diferença entre `git` e `hooks`:
 
 
 
-\* `git`: configuração geral do versionamento
+* `git`: configuração geral do versionamento
 
-\* `hooks`: scripts executados pelo Git
-
-
-
-\---
+* `hooks`: scripts executados pelo Git
 
 
 
-\## `docs`
+---
+
+
+
+## `docs`
 
 
 
@@ -548,11 +538,11 @@ docs/
 
 
 
-\---
+---
 
 
 
-\## `ci`
+## `ci`
 
 
 
@@ -586,7 +576,7 @@ Arquivos comuns:
 
 ```bash
 
-.github/workflows/\*
+.github/workflows/*
 
 .gitlab-ci.yml
 
@@ -596,11 +586,11 @@ azure-pipelines.yml
 
 
 
-\---
+---
 
 
 
-\## `build`
+## `build`
 
 
 
@@ -648,11 +638,11 @@ vite.config.js
 
 
 
-\---
+---
 
 
 
-\## `deps`
+## `deps`
 
 
 
@@ -692,11 +682,11 @@ Também é comum usar:
 
 
 
-\---
+---
 
 
 
-\## `release`
+## `release`
 
 
 
@@ -744,11 +734,11 @@ pubspec.yaml
 
 
 
-\---
+---
 
 
 
-\## `tests`
+## `tests`
 
 
 
@@ -782,23 +772,23 @@ Arquivos comuns:
 
 ```bash
 
-\*.test.js
+*.test.js
 
-\*.spec.ts
+*.spec.ts
 
-Test\*.java
+Test*.java
 
-\*Tests.cs
+*Tests.cs
 
 ```
 
 
 
-\---
+---
 
 
 
-\## `core`
+## `core`
 
 
 
@@ -830,21 +820,21 @@ Uso comum:
 
 
 
-\* Regras de negócio
+* Regras de negócio
 
-\* Domínio da aplicação
+* Domínio da aplicação
 
-\* Lógica principal
+* Lógica principal
 
-\* Fluxos essenciais
-
-
-
-\---
+* Fluxos essenciais
 
 
 
-\## `utils`
+---
+
+
+
+## `utils`
 
 
 
@@ -892,11 +882,11 @@ shared/
 
 
 
-\---
+---
 
 
 
-\## `scripts`
+## `scripts`
 
 
 
@@ -946,17 +936,17 @@ Diferença entre `scripts` e `hooks`:
 
 
 
-\* `hooks`: scripts executados automaticamente pelo Git
+* `hooks`: scripts executados automaticamente pelo Git
 
-\* `scripts`: scripts auxiliares executados manualmente ou por automações
-
-
-
-\---
+* `scripts`: scripts auxiliares executados manualmente ou por automações
 
 
 
-\## `infra`
+---
+
+
+
+## `infra`
 
 
 
@@ -1004,11 +994,11 @@ k8s/
 
 
 
-\---
+---
 
 
 
-\## `security`
+## `security`
 
 
 
@@ -1040,27 +1030,27 @@ Uso comum:
 
 
 
-\* Permissões
+* Permissões
 
-\* Tokens
+* Tokens
 
-\* Secrets
+* Secrets
 
-\* Autenticação
+* Autenticação
 
-\* Autorização
+* Autorização
 
-\* Criptografia
+* Criptografia
 
-\* Vulnerabilidades
-
-
-
-\---
+* Vulnerabilidades
 
 
 
-\## `database`
+---
+
+
+
+## `database`
 
 
 
@@ -1108,11 +1098,11 @@ dao/
 
 
 
-\---
+---
 
 
 
-\## `ui`
+## `ui`
 
 
 
@@ -1144,27 +1134,27 @@ Uso comum:
 
 
 
-\* Telas
+* Telas
 
-\* Componentes visuais
+* Componentes visuais
 
-\* Layout
+* Layout
 
-\* CSS
+* CSS
 
-\* Responsividade
+* Responsividade
 
-\* Ícones
+* Ícones
 
-\* Temas
-
-
-
-\---
+* Temas
 
 
 
-\## `api`
+---
+
+
+
+## `api`
 
 
 
@@ -1196,27 +1186,27 @@ Uso comum:
 
 
 
-\* Controllers
+* Controllers
 
-\* Routes
+* Routes
 
-\* Endpoints
+* Endpoints
 
-\* DTOs
+* DTOs
 
-\* Payloads
+* Payloads
 
-\* Requisições HTTP
+* Requisições HTTP
 
-\* Integrações externas
-
-
-
-\---
+* Integrações externas
 
 
 
-\# Como instalar em um projeto
+---
+
+
+
+# Como instalar em um projeto
 
 
 
@@ -1252,11 +1242,11 @@ git commit -m "🔧 chore(config): adiciona hooks compartilhados"
 
 
 
-\---
+---
 
 
 
-\# Como configurar após clonar um projeto
+# Como configurar após clonar um projeto
 
 
 
@@ -1290,11 +1280,11 @@ git config core.hooksPath .githooks
 
 
 
-\---
+---
 
 
 
-\# Como atualizar os hooks em um projeto
+# Como atualizar os hooks em um projeto
 
 
 
@@ -1318,11 +1308,11 @@ git commit -m "🔧 chore(config): atualiza hooks compartilhados"
 
 
 
-\---
+---
 
 
 
-\# Manutenção do Hook
+# Manutenção do Hook
 
 
 
@@ -1342,15 +1332,15 @@ Nele são mantidos:
 
 
 
-\* Gitmojis permitidos
+* Gitmojis permitidos
 
-\* Tipos permitidos
+* Tipos permitidos
 
-\* Escopos permitidos
+* Escopos permitidos
 
-\* Regex de validação
+* Regex de validação
 
-\* Mensagens de erro
+* Mensagens de erro
 
 
 
@@ -1378,11 +1368,11 @@ Exemplos de commits para manutenção:
 
 
 
-\---
+---
 
 
 
-\# Sugestão de Primeiro Commit
+# Sugestão de Primeiro Commit
 
 
 
@@ -1398,11 +1388,11 @@ Use:
 
 
 
-\---
+---
 
 
 
-\# Licença
+# Licença
 
 
 
