@@ -1,22 +1,132 @@
 #!/bin/sh
 
-commit_msg_file=$1
-commit_msg=$(cat "$commit_msg_file")
+# ==========================================================
+# Git Hook: commit-msg
+# ----------------------------------------------------------
+# Versão: 1.0.0
+#
+# Objetivo:
+# Validar mensagens de commit utilizando o padrão
+# Gitmoji + Conventional Commits.
+#
+# Formato obrigatório:
+#
+#   emoji tipo(escopo): descrição
+#
+# Exemplo:
+#
+#   ✨ feat(core): adiciona autenticação
+#
+# Documentação:
+# README.md
+# ==========================================================
 
-pattern='^(🎉|✨|🐛|♻️|📝|🎨|✅|🔧|⚡|🚀|🔥|🗃️|🔒|⬆️|🚑|🧾) (feat|fix|docs|style|refactor|test|chore|perf|build|ci)(\([a-zA-Z0-9_-]+\))?: .+'
+HOOK_VERSION="1.0.0"
 
-if ! echo "$commit_msg" | grep -Eq "$pattern"; then
-  echo ""
-  echo "❌ Mensagem de commit inválida!"
-  echo ""
-  echo "Use o padrão:"
-  echo "emoji tipo(escopo): descrição"
-  echo ""
-  echo "Exemplos válidos:"
-  echo "🎉 chore(project): adiciona versão inicial do projeto"
-  echo "✨ feat(produto): adiciona cadastro com leitor"
-  echo "🐛 fix(venda): corrige cálculo do subtotal"
-  echo "🧾 feat(comprovante): adiciona cupom não fiscal"
-  echo ""
-  exit 1
+# ==========================================================
+# Configuração
+# ==========================================================
+
+# Gitmojis permitidos
+allowed_emojis='🎉|✨|🐛|♻️|📝|🎨|✅|🔧|⚡|🚀|🔥|🗃️|🔒|⬆️|🚑|🧾|📦|🐳|🔖|➕|➖'
+
+# Tipos permitidos (Conventional Commits)
+allowed_types='feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert'
+
+# Escopos permitidos
+allowed_scopes='project|config|hooks|git|docs|ci|build|deps|release|tests|core|utils|scripts|infra|security|database|ui|api'
+
+# Regex de validação
+#
+# Formato:
+# emoji tipo(escopo): descrição
+#
+regex="^($allowed_emojis) ($allowed_types)\\(($allowed_scopes)\\): .+"
+
+# ==========================================================
+# Leitura da mensagem
+# ==========================================================
+
+commit_msg_file="$1"
+commit_msg="$(cat "$commit_msg_file")"
+
+# ==========================================================
+# Ignora commits automáticos do Git
+# ==========================================================
+
+case "$commit_msg" in
+    Merge*|Revert*|fixup!*|squash!*)
+        exit 0
+        ;;
+esac
+
+# ==========================================================
+# Validação
+# ==========================================================
+
+if ! echo "$commit_msg" | grep -Eq "$regex"; then
+
+    echo ""
+    echo "❌ Mensagem de commit inválida!"
+    echo ""
+
+    echo "Mensagem recebida:"
+    echo "  $commit_msg"
+    echo ""
+
+    echo "Formato esperado:"
+    echo "  emoji tipo(escopo): descrição"
+    echo ""
+
+    echo "Exemplos válidos:"
+    echo "  🎉 chore(project): adiciona estrutura inicial"
+    echo "  ✨ feat(core): adiciona regra principal"
+    echo "  🐛 fix(api): corrige retorno de erro"
+    echo "  🔧 chore(config): ajusta configuração do projeto"
+    echo "  📝 docs(docs): atualiza documentação"
+    echo "  ✅ test(tests): adiciona testes iniciais"
+    echo ""
+
+    echo "Tipos permitidos:"
+    echo "  feat"
+    echo "  fix"
+    echo "  docs"
+    echo "  style"
+    echo "  refactor"
+    echo "  test"
+    echo "  chore"
+    echo "  perf"
+    echo "  build"
+    echo "  ci"
+    echo "  revert"
+    echo ""
+
+    echo "Escopos permitidos:"
+    echo "  project"
+    echo "  config"
+    echo "  hooks"
+    echo "  git"
+    echo "  docs"
+    echo "  ci"
+    echo "  build"
+    echo "  deps"
+    echo "  release"
+    echo "  tests"
+    echo "  core"
+    echo "  utils"
+    echo "  scripts"
+    echo "  infra"
+    echo "  security"
+    echo "  database"
+    echo "  ui"
+    echo "  api"
+    echo ""
+
+    echo "Versão do hook:"
+    echo "  $HOOK_VERSION"
+    echo ""
+
+    exit 1
 fi
+
+exit 0
