@@ -3,55 +3,44 @@
 # ==========================================================
 # Git Hook: commit-msg
 # ----------------------------------------------------------
-# Versão: 1.0.0
+# Versão: 2.0.0
 #
 # Objetivo:
 # Validar mensagens de commit utilizando o padrão
-# Gitmoji + Conventional Commits.
+# Conventional Commits com suporte opcional ao Gitmoji.
 #
-# Formato obrigatório:
+# Formatos aceitos:
 #
-#   emoji tipo(escopo): descrição
-#
-# Exemplo:
-#
+#   feat(core): adiciona autenticação
 #   ✨ feat(core): adiciona autenticação
 #
-# Documentação:
-# README.md
+# O emoji é opcional.
+# O escopo é obrigatório.
 # ==========================================================
 
-HOOK_VERSION="1.0.0"
+HOOK_VERSION="2.0.0"
 
 # ==========================================================
 # Configuração
 # ==========================================================
 
-# Gitmojis permitidos
-allowed_emojis='🎉|✨|🐛|♻️|📝|🎨|✅|🔧|⚡|🚀|🔥|🗃️|🔒|⬆️|🚑|🧾|📦|🐳|🔖|➕|➖'
-
-# Tipos permitidos (Conventional Commits)
+# Tipos permitidos
 allowed_types='feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert'
 
 # Escopos permitidos
 allowed_scopes='project|config|hooks|git|docs|ci|build|deps|release|tests|core|utils|scripts|infra|security|database|ui|api'
-
-# Regex de validação
-#
-# Formato:
-# emoji tipo(escopo): descrição
-#
-regex="^($allowed_emojis) ($allowed_types)\\(($allowed_scopes)\\): .+"
 
 # ==========================================================
 # Leitura da mensagem
 # ==========================================================
 
 commit_msg_file="$1"
-commit_msg="$(cat "$commit_msg_file")"
+
+# Lê somente a primeira linha (título do commit)
+IFS= read -r commit_msg < "$commit_msg_file"
 
 # ==========================================================
-# Ignora commits automáticos do Git
+# Ignora commits automáticos
 # ==========================================================
 
 case "$commit_msg" in
@@ -61,31 +50,46 @@ case "$commit_msg" in
 esac
 
 # ==========================================================
+# Regex
+# ==========================================================
+#
+# Formatos aceitos:
+#
+# feat(core): descrição
+# ✨ feat(core): descrição
+#
+# O emoji (qualquer símbolo não iniciado por letra ou número)
+# é opcional.
+#
+# ==========================================================
+
+regex='^([^[:alnum:][:space:]]+[[:space:]]+)?('"$allowed_types"')\(('"$allowed_scopes"')\): .+$'
+
+# ==========================================================
 # Validação
 # ==========================================================
 
-if ! echo "$commit_msg" | grep -Eq "$regex"; then
+if ! printf '%s\n' "$commit_msg" | grep -Eq "$regex"; then
 
-    echo ""
+    echo
     echo "❌ Mensagem de commit inválida!"
-    echo ""
+    echo
 
     echo "Mensagem recebida:"
     echo "  $commit_msg"
-    echo ""
+    echo
 
     echo "Formato esperado:"
-    echo "  emoji tipo(escopo): descrição"
-    echo ""
+    echo "  [emoji] tipo(escopo): descrição"
+    echo
 
     echo "Exemplos válidos:"
-    echo "  🎉 chore(project): adiciona estrutura inicial"
-    echo "  ✨ feat(core): adiciona regra principal"
+    echo "  feat(core): adiciona autenticação"
+    echo "  ✨ feat(core): adiciona autenticação"
     echo "  🐛 fix(api): corrige retorno de erro"
-    echo "  🔧 chore(config): ajusta configuração do projeto"
-    echo "  📝 docs(docs): atualiza documentação"
-    echo "  ✅ test(tests): adiciona testes iniciais"
-    echo ""
+    echo "  📝 docs(docs): atualiza README"
+    echo "  🔧 chore(config): ajusta configuração"
+    echo
 
     echo "Tipos permitidos:"
     echo "  feat"
@@ -99,7 +103,7 @@ if ! echo "$commit_msg" | grep -Eq "$regex"; then
     echo "  build"
     echo "  ci"
     echo "  revert"
-    echo ""
+    echo
 
     echo "Escopos permitidos:"
     echo "  project"
@@ -120,11 +124,10 @@ if ! echo "$commit_msg" | grep -Eq "$regex"; then
     echo "  database"
     echo "  ui"
     echo "  api"
-    echo ""
+    echo
 
-    echo "Versão do hook:"
-    echo "  $HOOK_VERSION"
-    echo ""
+    echo "Versão do hook: $HOOK_VERSION"
+    echo
 
     exit 1
 fi
