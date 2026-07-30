@@ -3,32 +3,40 @@
 # ==========================================================
 # Git Hook: commit-msg
 # ----------------------------------------------------------
-# Versão: 2.0.0
+# Versão: 2.0.1
 #
 # Objetivo:
 # Validar mensagens de commit utilizando o padrão
-# Conventional Commits com suporte opcional ao Gitmoji.
+# Gitmoji + Conventional Commits.
 #
 # Formatos aceitos:
 #
-#   feat(core): adiciona autenticação
+#   🎉 feat(project): inicia o projeto
 #   ✨ feat(core): adiciona autenticação
+#   feat(core): adiciona autenticação
 #
-# O emoji é opcional.
+# O Gitmoji é opcional.
 # O escopo é obrigatório.
 # ==========================================================
 
-HOOK_VERSION="2.0.0"
+HOOK_VERSION="2.0.1"
 
 # ==========================================================
 # Configuração
 # ==========================================================
 
-# Tipos permitidos
+# Tipos permitidos (Conventional Commits)
 allowed_types='feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert'
 
 # Escopos permitidos
 allowed_scopes='project|config|hooks|git|docs|ci|build|deps|release|tests|core|utils|scripts|infra|security|database|ui|api'
+
+# Define se o Gitmoji é obrigatório.
+#
+# true  = obrigatório
+# false = opcional
+#
+REQUIRE_EMOJI=false
 
 # ==========================================================
 # Leitura da mensagem
@@ -36,7 +44,7 @@ allowed_scopes='project|config|hooks|git|docs|ci|build|deps|release|tests|core|u
 
 commit_msg_file="$1"
 
-# Lê somente a primeira linha (título do commit)
+# Lê apenas a primeira linha (título do commit)
 IFS= read -r commit_msg < "$commit_msg_file"
 
 # ==========================================================
@@ -50,26 +58,61 @@ case "$commit_msg" in
 esac
 
 # ==========================================================
-# Regex
-# ==========================================================
-#
-# Formatos aceitos:
-#
-# feat(core): descrição
-# ✨ feat(core): descrição
-#
-# O emoji (qualquer símbolo não iniciado por letra ou número)
-# é opcional.
-#
+# Pré-processamento
 # ==========================================================
 
-regex='^([^[:alnum:][:space:]]+[[:space:]]+)?('"$allowed_types"')\(('"$allowed_scopes"')\): .+$'
+message="$commit_msg"
+emoji=""
+
+case "$message" in
+    *" "*)
+
+        first_word="${message%% *}"
+
+        case "$first_word" in
+
+            [[:alnum:]]*)
+                ;;
+
+            *)
+                emoji="$first_word"
+                message="${message#* }"
+                ;;
+
+        esac
+        ;;
+esac
+
+# ==========================================================
+# Validação do Gitmoji
+# ==========================================================
+
+if [ "$REQUIRE_EMOJI" = "true" ] && [ -z "$emoji" ]; then
+
+    echo
+    echo "❌ Gitmoji obrigatório!"
+    echo
+    echo "Formato esperado:"
+    echo "  emoji tipo(escopo): descrição"
+    echo
+    echo "Exemplo:"
+    echo "  ✨ feat(core): adiciona autenticação"
+    echo
+
+    exit 1
+fi
+
+# ==========================================================
+# Regex
+# ==========================================================
+
+regex="^(${allowed_types})\\((${allowed_scopes})\\): .+$"
 
 # ==========================================================
 # Validação
 # ==========================================================
 
-if ! printf '%s\n' "$commit_msg" | grep -Eq "$regex"; then
+if ! printf '%s\n' "$message" | grep -Eq "$regex"; then
 
     echo
     echo "❌ Mensagem de commit inválida!"
@@ -84,11 +127,18 @@ if ! printf '%s\n' "$commit_msg" | grep -Eq "$regex"; then
     echo
 
     echo "Exemplos válidos:"
-    echo "  feat(core): adiciona autenticação"
+    echo "  🎉 feat(project): inicia o projeto"
     echo "  ✨ feat(core): adiciona autenticação"
     echo "  🐛 fix(api): corrige retorno de erro"
     echo "  📝 docs(docs): atualiza README"
+    echo "  🎨 style(ui): ajusta layout"
+    echo "  ♻️ refactor(core): reorganiza serviço"
+    echo "  ✅ test(tests): adiciona testes"
     echo "  🔧 chore(config): ajusta configuração"
+    echo "  ⚡ perf(database): otimiza consulta"
+    echo "  📦 build(deps): atualiza dependências"
+    echo "  🚀 ci(ci): configura pipeline"
+    echo "  ⏪ revert(core): reverte alteração"
     echo
 
     echo "Tipos permitidos:"
@@ -126,7 +176,8 @@ if ! printf '%s\n' "$commit_msg" | grep -Eq "$regex"; then
     echo "  api"
     echo
 
-    echo "Versão do hook: $HOOK_VERSION"
+    echo "Versão do hook:"
+    echo "  $HOOK_VERSION"
     echo
 
     exit 1
